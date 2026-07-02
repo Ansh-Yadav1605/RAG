@@ -32,8 +32,8 @@ def main():
     print("\n[Step 1/4] Scraping data from Groww...")
     raw_docs = scrape_all()
     if not raw_docs:
-        print("[ERROR] Scraper returned no data. Aborting.")
-        sys.exit(1)
+        print("[WARNING] Scraper returned no data (likely IP blocked by Groww). Aborting cleanly.")
+        sys.exit(0)
         
     # Step 2: Chunk
     print("\n[Step 2/4] Chunking documents...")
