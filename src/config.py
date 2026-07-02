@@ -40,11 +40,8 @@ LLM_FALLBACK_MODEL: str = "mixtral-8x7b-32768"
 LLM_TEMPERATURE: float = 0.0
 LLM_MAX_TOKENS: int = 200
 
-if not GROQ_API_KEY:
-    raise EnvironmentError(
-        "Missing required env var: GROQ_API_KEY. "
-        "Copy .env.example to .env and set your Groq API key."
-    )
+# We will validate GROQ_API_KEY dynamically where it is needed (e.g., llm_client.py)
+# so that ingestion scripts can run on CI without needing an LLM key.
 
 # ============================================================
 # Embedding Model Configuration
