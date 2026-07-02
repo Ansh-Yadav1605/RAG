@@ -1,0 +1,49 @@
+name: Daily Data Ingestion
+
+on:
+  schedule:
+    # 10:30 AM IST is 5:00 AM UTC
+    - cron: '0 5 * * *'
+  workflow_dispatch: # Allows manual triggering from the GitHub Actions tab
+
+permissions:
+  contents: write # Needed to commit the updated vector database back to the repo
+
+jobs:
+  update-vectorstore:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+          
+      - name: Run Ingestion Pipeline
+        run: |
+          # This script scrapes latest data, chunks it, and updates ChromaDB
+          python scripts/ingest.py
+          
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Add the vectorstore directory
+          git add vectorstore/
+          
+          # Check if there are any changes to commit. If there are, commit and push them.
+          if ! git diff --staged --quiet; then
+            git commit -m "Auto-update mutual fund data in ChromaDB [skip ci]"
+            git push
+          else
+            echo "No changes in mutual fund data."
+          fi
