@@ -4,6 +4,11 @@ Streamlit App for Mutual Fund FAQ Assistant
 Provides a direct UI for the RAG pipeline to be deployed on Streamlit Community Cloud.
 """
 
+# Hack to fix ChromaDB sqlite3 version issue on Streamlit Cloud
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 import streamlit as st
 import time
 
