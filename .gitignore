@@ -2,7 +2,7 @@
 __pycache__/
 *.pyc
 *.pyo
-vectorstore/
+# vectorstore/
 data/raw/
 data/processed/
 .venv/
