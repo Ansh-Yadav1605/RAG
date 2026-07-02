@@ -119,9 +119,11 @@ if cols[2].button("Exit load for HDFC Small Cap?"):
     st.session_state.query = "What is the exit load for HDFC Small Cap Fund?"
 
 # --- Chat Input ---
+prompt = st.chat_input("Ask a question...")
+
 if "query" in st.session_state and st.session_state.query:
     q = st.session_state.query
     st.session_state.query = "" # reset
     submit_query(q)
-elif prompt := st.chat_input("Ask a question..."):
+elif prompt:
     submit_query(prompt)
