@@ -8,4 +8,3 @@ groq
 python-dotenv
 tenacity==8.4.1
 streamlit==1.36.0
-pysqlite3-binary
