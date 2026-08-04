@@ -1,11 +1,9 @@
 requests
 beautifulsoup4
-langchain
 langchain-text-splitters
 sentence-transformers
 chromadb
 groq
 python-dotenv
-tenacity==8.4.1
-streamlit==1.36.0
-pysqlite3-binary
+tenacity>=8.4.1
+streamlit>=1.36.0
